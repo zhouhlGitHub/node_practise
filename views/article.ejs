@@ -1,0 +1,56 @@
+<%- include header %>
+<% if (user && (user.name == article.userName)) {%>
+<p>
+    <span>
+        <a class="edit" href="/edit/<%=article.userName%>/<%=article.time.day%>/<%=article.title%>">编辑</a>
+    </span>
+    <span>
+        <a class="edit" href="/remove/<%=article.userName%>/<%=article.time.day%>/<%=article.title%>">删除</a>
+    </span>
+    <% var flag = 1; %>
+    <% if (user && (user.name != article.userName)) {%>
+        <% if ((article.reprint_info.reprint_from != undefined) && (user.name == article.reprint_info.reprint_from.userName)) {%>
+            <% flag = 0; %>
+        <% } %>
+        <% if ((article.reprint_info.reprint_to != undefined)) {%>
+            <% article.reprint_info.reprint_to.forEach(function (reprint_to, index) { %>
+                <% if (user.name == reprint_to.userName) {%>
+                    <% flag = 0; %>
+                <% } %>
+            <% }) %>
+        <% } %>
+    <% } else { %>
+        <% flag = 0; %>
+    <% } %>
+    <% if (flag) {%>
+        <span>
+            <a href="/reprint/<%=article.userName%>/<%=article.time.day%>/<%= article.title %>" class="edit">转载</a>
+        </span>
+    <% } %>
+</p>
+<% } %>
+<p class="info">
+    作者：<a href="/u/<%= article.userName %>"><%=article.userName%></a> |
+    日期：<%=article.time.minute%> |
+    标签：
+    <%article.tags.forEach(function (tag, index) { %>
+        <% if (tag) { %>
+            <a href="/tags/<%= tag%>" class="tag"><%=tag%></a>
+        <% } %>
+    <% }) %>
+</p>
+<% if (article.reprint_info.reprint_from) { %>
+    <br><a href="/u/<%= article.reprint_info.reprint_from.userName %>/<%= article.reprint_info.reprint_from.day %>/<%= article.reprint_info.reprint_from.title %>">原文链接</a>
+<% } %>
+
+<p><%- article.content%></p>
+<p class="info">阅读：<%= article.pv %> | 评论：<%= article.comments.length %> |
+    转载：
+    <% if (article.reprint_info.reprint_to) { %>
+        <%= article.reprint_info.reprint_to.length %>
+    <% } else { %>
+        <%= 0 %>
+    <% } %>
+</p>
+<%- include comment %>
+<%- include footer %>
