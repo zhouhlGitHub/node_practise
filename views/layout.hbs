@@ -20,7 +20,7 @@
 </head>
 <body>
     <header>
-        <h1><%= title %></h1>
+        <h1>{{title}}</h1>
     </header>
     <nav>
         <span>
@@ -35,7 +35,7 @@
         <span>
             <a href="/links" title="友情链接">links</a>
         </span>
-        <% if(user) {%>
+        {{#if user}}
         <span>
             <a href="/upload" title="上传">upload</a>
         </span>
@@ -45,14 +45,14 @@
         <span>
             <a href="/logout" title="登陆">logout</a>
         </span>
-        <% } else {%>
+        {{ else }}
         <span>
             <a href="/login" title="登陆">login</a>
         </span>
         <span>
             <a href="/reg" title="注册">register</a>
         </span>
-        <%}%>
+        {{/if}}
         <span>
             <form class="" action="/search" method="GET">
                 <input type="text" name="keyword" placeholder="SEARCH" class="search" />
@@ -60,9 +60,13 @@
         </span>
     </nav>
     <article>
-    <% if(success) { %>
-    <div><%= success%></div>
-    <%}%>
-    <% if(error) {%>
-        <div><%= error %></div>
-    <%}%>
+        {{#if success }}
+            <div>{{success}}</div>
+        {{/if}}
+        {{#if error }}
+            <div>{{error}}</div>
+        {{/if}}
+    </article>
+    {{{body}}}
+</body>
+</html>

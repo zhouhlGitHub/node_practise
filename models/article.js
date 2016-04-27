@@ -78,9 +78,9 @@ Article.getTen = function (userName, page, callback) {
                     if (err) {
                         return callback(err);
                     }
-                    article.forEach(function (doc) {
-                        doc.content = markdown.toHTML(doc.content);
-                    });
+                    // article.forEach(function (doc) {
+                    //     doc.content = markdown.toHTML(doc.content);
+                    // });
                     callback(null, article, total);
                 });
             });
@@ -123,12 +123,12 @@ Article.getOne = function (name, day, title, callback) {
                             return callback(err);
                         }
                     });
-                    doc.content = markdown.toHTML(doc.content);
-                    if (doc.comments) {
-                        doc.comments.forEach(function (comment) {
-                            comment.content = markdown.toHTML(comment.content);
-                        });
-                    }
+                    // doc.content = markdown.toHTML(doc.content);
+                    // if (doc.comments) {
+                    //     doc.comments.forEach(function (comment) {
+                    //         comment.content = markdown.toHTML(comment.content);
+                    //     });
+                    // }
                     callback(null, doc);
                 }
             });

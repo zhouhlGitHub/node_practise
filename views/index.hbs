@@ -1,0 +1,31 @@
+{{#each articles}}
+    <p>
+        <h2><a href="/u/{{userName}}/{{time.day }}/{{title }}">{{title}}</a></h2>
+        <a href="/u/{{userName}}">
+            <img src="{{head}}" class="r_head" alt="" />
+        </a>
+    </p>
+    <p class="info">
+        作者：<a href="/u/{{userName}}">{{userName}}</a> |
+        日期：{{time.minute}} |
+        标签：
+        {{#each tags}}
+            {{#if this.tag}}
+                <a href="/tags/{{this.tag}}" class="tag">{{this.tag}}</a>
+            {{/if}}
+        {{/each}}
+    </p>
+    {{#if reprint_info.reprint_from }}
+        <br><a href="/u/{{reprint_info.reprint_from.userName}}/{{reprint_info.reprint_from.day}}/{{reprint_info.reprint_from.title}}">原文链接</a>
+    {{/if}}
+
+    <p>{{{content}}}</p>
+    <p class="info">阅读：{{pv}} | 评论：{{comments.length}} |
+        转载：
+        {{#if reprint_info.reprint_to }}
+            {{reprint_info.reprint_to.length}}
+        {{else}}
+            0
+        {{/if}}
+    </p>
+{{/each}}
